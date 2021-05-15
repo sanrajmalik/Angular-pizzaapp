@@ -1,0 +1,58 @@
+<div class="container mt-2 " *ngIf="cart.length>0; else elseBlock" style="margin-bottom: 50px;">
+    <h1 class="text-center">Cart</h1>
+    <div class="row">
+    <div class="col-md-7 border pt-1">
+    <h5>Cart Summary ({{cart.length}} Item)</h5> 
+    <div *ngFor="let a of cart" class="row mb-4 border-top border-bottom ml-1 mr-1 shadow">
+        
+            <div class="col-md-2 my-auto mx-auto">
+<img src="{{a.image}}" alt="Image Not Available" width="80px" height="80px"/>
+            </div>
+<div class='col-md-4 my-auto mx-auto'>
+<h4>{{a.name}}</h4>
+<label class="font-italic small">Cost Total : {{a.price}}</label><br>
+<label class="font-italic small">Topping Included : <ng-container *ngFor="let c of a.topping">{{c.tname}}, </ng-container></label>
+</div>
+<div class="col-md-3 my-auto">
+<div class="row justify-content-center">
+  <button class='btn btn-sm btn-outline-danger'(click)="dec(a.id)">-</button><div class="border"><h6 class="pt-1 ml-1 mr-1">{{a.quantity}} Pcs</h6></div><button class='btn btn-sm btn-outline-success' (click)="inc(a.id)">+</button>
+</div>
+</div>
+<div class="col-md-3 my-auto">
+    <h5>{{a.price*a.quantity|currency:'INR'}}
+    <button class='btn btn-sm float-right' (click)="delete(a.id)"><i class="bi bi-trash"></i></button>
+</h5>
+</div>
+</div>
+</div>
+<div class="col-md-4 border ml-1 h-50 pt-1">
+   <h4>Total you have to pay</h4>
+   <div class="border-bottom ml-1 mr-1">
+   <p>Pizza Price<span class="float-right">{{total2|currency:"INR"}}</span></p>
+   <div *ngFor="let a of cart1">
+    {{a.tname}}
+  </div>
+  <div *ngFor="let a of cart1">
+    <p class="font-weight-bold font-italic">Extra Toppings Cost</p>
+    <ng-container *ngFor="let c of a.topping">{{c.tname}}, </ng-container><span class="float-right">{{total1|currency:"INR"}}</span>
+    <span class="float-right"><button class='btn btn-sm float-center' (click)="deletein(a.id)"><i class="bi bi-trash"></i></button></span>
+  </div>   
+   </div>
+   <p class="font-weight-bold font-italic">Total amount to be paid</p>
+   <p><span class="float-right">{{total|currency:"INR"}}</span></p>
+   <button class=" btn btn-info btn-block mb-1" routerLink="/checkout" (click)="checkout()">Checkout</button>
+   <button class=" btn btn-danger btn-block mb-1" (click)="checkout()">Empty Cart</button>
+</div>
+</div>
+</div>
+<ng-template #elseBlock>
+    <div class="text-center">
+        <figure>
+  <img class="img img-fluid" src="assets/empty.png" width="600px">
+</figure>
+<button class="btn btn-success" routerLink="/order">Add Something</button>
+</div>
+</ng-template>
+<div *ngFor="let a of cart1">
+  {{a.tname}}
+</div>

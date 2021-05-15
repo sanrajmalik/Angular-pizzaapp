@@ -1,0 +1,41 @@
+<div class="container" *ngIf="menu.length>0; else elseBlock" style="margin-bottom: 50px;">
+    <h1 class="text-center mb-3">Menu</h1>
+    <div class="row">
+<div *ngFor="let a of menu;" class="col-md-6 pt-2 pb-2 mb-4 shadow">
+    <div class="row">
+    <div class="col-md-3">
+    <h4>{{a.name}}</h4>
+    <ng-container *ngIf="a.type=='veg'; else elseBlock">
+     <img src="assets/veg.png" height="35px" width="35px"/>
+    </ng-container>
+    <ng-template #elseBlock>
+        <img src="assets/nonveg.png" height="35px" width="35px"/>
+    </ng-template>
+    <h5 class="mt-5">{{a.price|currency:'INR'}}</h5>
+    </div>
+    <div class="col-md-5">
+        <p>{{a.description}}</p>
+        <span class="font-weight-bold">Ingredients : </span>
+        <ng-container *ngFor="let b of a.ingredients">{{b.iname}}, </ng-container>
+        <br>
+        <br>
+        <span class="font-weight-bold">Toppings : </span> 
+        <ng-container *ngFor="let c of a.topping">{{c.tname}}, </ng-container>
+    </div>
+    <div class="col-md-4 text-center my-auto">
+        <figure>
+        <img src="{{a.image}}" width="150px" height="150px" class="img-fluid" />
+        </figure>
+        <button style="color:black; background-color: yellow;" class="btn btn-danger mb-1" routerLink="/build"  [disabled]="fun(a.id)" (click)="fetch(a)">{{text(a.id)}}</button>
+    </div>
+</div>
+</div>
+</div>
+</div>
+<ng-template #elseBlock>
+    <div
+  class="d-flex align-items-center justify-content-center" style="height:100%;width: 100%; position:fixed   ;">
+  <h6>Please wait the menu is getting loaded.....</h6>
+  <span class="spinner-border ml-4"></span>
+</div>
+</ng-template>

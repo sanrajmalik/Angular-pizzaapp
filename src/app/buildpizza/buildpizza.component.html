@@ -1,0 +1,27 @@
+<div *ngIf="cart.length>0; else elseBlock" style="margin-bottom:50px;">
+     <div class="container mt-2 text-center" *ngIf="build.length>0; else elseBlock"> 
+     <h2>Available Toppings Go Crazy</h2>
+    <table class="table table-bordered table-striped w-75 mx-auto" >
+        <tbody>
+            <tr *ngFor="let a of build">
+                <td ><img src="{{a.image}}" height="75px" width="75px" /></td>
+                <td class="font-weight-bold align-middle">{{a.tname}}&nbsp;&nbsp;{{a.price|currency:'INR'}}</td>
+                <td class="align-middle"> <input type="checkbox" [checked]="check(a)" #checkboxes (change)="add(a,$event)"> Add</td>
+            </tr>
+            <tr>
+               <td colspan="3"> <h4 class="float-center">Total Cost: {{total|currency:"INR"}}</h4>
+                <br> <br><button routerLink="/cart" style="color:black; background-color: yellow;" class="btn btn-success"(click)="buildpizza() ;checkedEvnt()">Build Your Pizza</button>
+                <button style="color:white; background-color: red;" class="ml-2 btn btn-dark"(click)="checkedEvnt()">Clear</button>
+               </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    </div>
+    <ng-template #elseBlock>
+      <div style="text-align: center; padding-top: 50px; padding-bottom: 50px;">
+        <h3>Please choose a pizza first</h3>
+        <button style="top: 50%;" class="navbar-btn btn btn-primary ml-auto" routerLink="/order">Click to choose
+        </button>
+        </div>
+    </ng-template>
